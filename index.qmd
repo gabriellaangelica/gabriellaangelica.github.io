@@ -1,7 +1,8 @@
 ---
-title: "website"
+title: "Gabriella Angelica Jemima Hasian"
+about:
+  template: jolla
+  image: images/profile.png
 ---
 
-This is a Quarto website.
-
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+Hi, I’m Gabriella Hasian, a Master of Data Science student at the University of British Columbia with a background in Actuarial Science and several years of experience in credit decisioning. Before pursuing my MDS, I worked in banking, where I focused on using data and analytics to support credit risk and portfolio management. This experience sparked my interest in applying data science to real-world problems and using data to drive better decisions. I’m now looking to deepen my expertise in data science and explore opportunities at the intersection of data, technology, and finance.
