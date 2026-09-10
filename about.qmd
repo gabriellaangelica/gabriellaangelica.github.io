@@ -1,5 +1,11 @@
 ---
 title: "About"
 ---
+## Background
+I grew up in Jakarta, Indonesia, as the firstborn in my family. I have always been drawn to quantitative thinking and curious about how numbers and data can be used to understand and solve problems. As data became increasingly important across industries, I began my career in banking, where I worked on credit decisioning and encountered real-world challenges involving backtesting, data management, and analytics. I’m grateful to have had the opportunity to learn and apply these concepts in an industry setting before returning to school to deepen my knowledge and explore data science from a broader perspective.
 
-About this site
+## Why Data Science
+My experience in banking and the boost of data usage that currently growing made me increasingly curious about what could be done beyond traditional analysis. I wanted to strengthen my ability to work with data, build analytical solutions, and approach problems from a more computational perspective which still applicable in the industry. This led me to pursue the Master of Data Science at UBC. I hope to expand my technical skills and explore new ways of applying data science to meaningful problems and see things from different perspectives.
+
+## Outside of Data Science
+Outside of school and work, I enjoy travelling, exploring new places, and trying different foods. When I’m away from the screen, I often find myself reading a book on the balcony and enjoying some fresh air. I also try to stay active and make time for activities that help me maintain a good balance between work and personal life. As I begin this new chapter in Vancouver, I’m looking forward to exploring the city and experiencing all that it has to offer.

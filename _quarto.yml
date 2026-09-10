@@ -1,13 +1,17 @@
 project:
   type: website
+  output-dir: docs
 
 website:
-  title: "website"
+  title: "Gabriella Angelica Jemima Hasian"
   navbar:
     left:
       - href: index.qmd
         text: Home
-      - about.qmd
+      - href: about.qmd
+        text: About
+      - href: blog.qmd
+        text: Blog
 
 format:
   html:
