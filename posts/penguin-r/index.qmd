@@ -1,0 +1,73 @@
+---
+title: "Exploring Penguin Body Mass with R"
+author: "Gabriella Angelica Jemima Hasian"
+date: "2026-09-24"
+---
+
+## Introduction
+
+The Palmer Penguins dataset contains measurements for penguins observed in the Palmer Archipelago of Antarctica. In this analysis, I use R to explore how body mass and flipper length vary across penguin species.
+
+The data come from the Palmer Penguins project:
+https://allisonhorst.github.io/palmerpenguins/
+
+## Loading the data
+
+I first load the dataset and inspect its structure.
+
+```{r}
+library(tidyverse)
+
+penguins <- read_csv(
+  "https://raw.githubusercontent.com/allisonhorst/palmerpenguins/main/inst/extdata/penguins.csv"
+)
+
+head(penguins)
+```
+
+## Cleaning the data
+
+The variables used in this analysis are species, flipper length, and body mass. I remove observations that are missing values for these variables.
+
+```{r}
+analysis_data <- penguins |>
+  select(species, flipper_length_mm, body_mass_g) |>
+  drop_na()
+
+glimpse(analysis_data)
+```
+
+## Comparing body mass across species
+
+Next, I calculate the average and median body mass for each penguin species.
+
+```{r}
+summary <- analysis_data |>
+  group_by(species) |>
+  summarise(
+    count = n(),
+    mean = mean(body_mass_g),
+    median = median(body_mass_g)
+  ) |>
+  mutate(across(where(is.numeric), ~ round(.x, 1)))
+
+summary
+```
+
+## Relationship between flipper length and body mass
+
+Finally, I visualize the relationship between flipper length and body mass.
+
+```{r}
+ggplot(analysis_data, aes(x = flipper_length_mm, y = body_mass_g, color = species)) +
+  geom_point() +
+  labs(
+    title = "Relationship between Flipper Length and Body Mass",
+    x = "Flipper Length (mm)",
+    y = "Body Mass (g)",
+    color = "Species"
+  ) +
+  theme_minimal()
+```
+
+The plot shows a positive relationship between flipper length and body mass. Penguins with longer flippers generally have greater body mass. The three species also form somewhat distinct groups, with Gentoo penguins generally having both longer flippers and higher body mass than Adelie and Chinstrap penguins.
