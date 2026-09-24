@@ -4,7 +4,7 @@
     "href": "blog.html",
     "title": "Blog",
     "section": "",
-    "text": "My first weeks in MDS\n\n\n\n\n\n\n\n\nSep 10, 2026\n\n\nGabriella Angelica Jemima Hasian\n\n\n\n\n\nNo matching items"
+    "text": "Exploring Penguin Body Mass with Python\n\n\n\n\n\n\n\n\nSep 23, 2026\n\n\nGabriella Angelica Jemima Hasian\n\n\n\n\n\n\n\n\n\n\n\n\nMy first weeks in MDS\n\n\n\n\n\n\n\n\nSep 10, 2026\n\n\nGabriella Angelica Jemima Hasian\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "index.html",
@@ -19,6 +19,48 @@
     "title": "My first weeks in MDS",
     "section": "",
     "text": "Catching sunsets between assignments\n\n\nStarting the Master of Data Science at UBC has been an exciting experience so far. Orientation was a great opportunity to meet my classmates and get a sense of what the next few months would look like. Coming from Indonesia and starting this new chapter in Vancouver, it was exciting—and a little overwhelming—to suddenly be surrounded by people from different backgrounds and experiences.\nThe first weeks of classes have been fast-paced, with a lot to learn and even more to keep up with. What surprised me most was how quickly we moved from introductions to actually working with data, programming, and new concepts. I’m enjoying the challenge, especially seeing how different everyone’s approaches can be when solving the same problem.\nI’m still getting used to the pace and finding my routine, but I’m feeling excited about what’s ahead. There is definitely a lot to learn, but I’m looking forward to making the most of the MDS experience, both inside and outside the classroom."
+  },
+  {
+    "objectID": "posts/penguin-python/index.html",
+    "href": "posts/penguin-python/index.html",
+    "title": "Exploring Penguin Body Mass with Python",
+    "section": "",
+    "text": "The Palmer Penguins dataset contains measurements for penguins observed in the Palmer Archipelago of Antarctica. In this analysis, I use Python to explore how body mass and flipper length vary across penguin species.\nThe data come from the Palmer Penguins project: https://allisonhorst.github.io/palmerpenguins/"
+  },
+  {
+    "objectID": "posts/penguin-python/index.html#introduction",
+    "href": "posts/penguin-python/index.html#introduction",
+    "title": "Exploring Penguin Body Mass with Python",
+    "section": "",
+    "text": "The Palmer Penguins dataset contains measurements for penguins observed in the Palmer Archipelago of Antarctica. In this analysis, I use Python to explore how body mass and flipper length vary across penguin species.\nThe data come from the Palmer Penguins project: https://allisonhorst.github.io/palmerpenguins/"
+  },
+  {
+    "objectID": "posts/penguin-python/index.html#loading-the-data",
+    "href": "posts/penguin-python/index.html#loading-the-data",
+    "title": "Exploring Penguin Body Mass with Python",
+    "section": "Loading the data",
+    "text": "Loading the data\nI first load the dataset and inspect its structure.\n\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\nurl = \"https://raw.githubusercontent.com/allisonhorst/palmerpenguins/main/inst/extdata/penguins.csv\"\n\npenguins = pd.read_csv(url)\n\npenguins.head()\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\n\n0\nAdelie\nTorgersen\n39.1\n18.7\n181.0\n3750.0\nmale\n2007\n\n\n1\nAdelie\nTorgersen\n39.5\n17.4\n186.0\n3800.0\nfemale\n2007\n\n\n2\nAdelie\nTorgersen\n40.3\n18.0\n195.0\n3250.0\nfemale\n2007\n\n\n3\nAdelie\nTorgersen\nNaN\nNaN\nNaN\nNaN\nNaN\n2007\n\n\n4\nAdelie\nTorgersen\n36.7\n19.3\n193.0\n3450.0\nfemale\n2007"
+  },
+  {
+    "objectID": "posts/penguin-python/index.html#cleaning-the-data",
+    "href": "posts/penguin-python/index.html#cleaning-the-data",
+    "title": "Exploring Penguin Body Mass with Python",
+    "section": "Cleaning the data",
+    "text": "Cleaning the data\nThe variables used in this analysis are species, flipper length, and body mass. I remove observations that are missing values for these variables.\n\nanalysis_data = penguins[\n    [\"species\", \"flipper_length_mm\", \"body_mass_g\"]\n].dropna()\n\nanalysis_data.info()"
+  },
+  {
+    "objectID": "posts/penguin-python/index.html#comparing-body-mass-across-species",
+    "href": "posts/penguin-python/index.html#comparing-body-mass-across-species",
+    "title": "Exploring Penguin Body Mass with Python",
+    "section": "Comparing body mass across species",
+    "text": "Comparing body mass across species\nNext, I calculate the average and median body mass for each penguin species.\n\nsummary = (\n    analysis_data\n    .groupby(\"species\")[\"body_mass_g\"]\n    .agg([\"count\", \"mean\", \"median\"])\n    .round(1)\n)\n\nsummary\n\n\n\n\n\n\n\n\ncount\nmean\nmedian\n\n\nspecies\n\n\n\n\n\n\n\nAdelie\n151\n3700.7\n3700.0\n\n\nChinstrap\n68\n3733.1\n3700.0\n\n\nGentoo\n123\n5076.0\n5000.0\n\n\n\n\n\n\n\nThe summary shows how typical body mass differs among the three species."
+  },
+  {
+    "objectID": "posts/penguin-python/index.html#relationship-between-flipper-length-and-body-mass",
+    "href": "posts/penguin-python/index.html#relationship-between-flipper-length-and-body-mass",
+    "title": "Exploring Penguin Body Mass with Python",
+    "section": "Relationship between flipper length and body mass",
+    "text": "Relationship between flipper length and body mass\nFinally, I visualize the relationship between flipper length and body mass.\n\nplt.figure(figsize=(8, 5))\n\nfor species, group in analysis_data.groupby(\"species\"):\n    plt.scatter(\n        group[\"flipper_length_mm\"],\n        group[\"body_mass_g\"],\n        label=species,\n        alpha=0.7\n    )\n\nplt.xlabel(\"Flipper length (mm)\")\nplt.ylabel(\"Body mass (g)\")\nplt.title(\"Flipper Length and Body Mass by Penguin Species\")\nplt.legend()\nplt.tight_layout()\nplt.show()\n\n\n\n\n\n\n\nFigure 1: Relationship between flipper length and body mass across penguin species\n\n\n\n\n\nThe plot shows a positive relationship between flipper length and body mass: penguins with longer flippers generally tend to have greater body mass. The species also occupy somewhat different regions of the plot, suggesting that species is associated with differences in these physical measurements."
   },
   {
     "objectID": "about.html",
