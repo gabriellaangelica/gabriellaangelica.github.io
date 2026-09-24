@@ -46,7 +46,7 @@
     "href": "posts/penguin-python/index.html#cleaning-the-data",
     "title": "Exploring Penguin Body Mass with Python",
     "section": "Cleaning the data",
-    "text": "Cleaning the data\nThe variables used in this analysis are species, flipper length, and body mass. I remove observations that are missing values for these variables.\n\nanalysis_data = penguins[\n    [\"species\", \"flipper_length_mm\", \"body_mass_g\"]\n].dropna()\n\nanalysis_data.info()"
+    "text": "Cleaning the data\nThe variables used in this analysis are species, flipper length, and body mass. I remove observations that are missing values for these variables.\n\nanalysis_data = penguins[\n    [\"species\", \"flipper_length_mm\", \"body_mass_g\"]\n].dropna()\n\nanalysis_data.info()\n\n&lt;class 'pandas.DataFrame'&gt;\nIndex: 342 entries, 0 to 343\nData columns (total 3 columns):\n #   Column             Non-Null Count  Dtype  \n---  ------             --------------  -----  \n 0   species            342 non-null    str    \n 1   flipper_length_mm  342 non-null    float64\n 2   body_mass_g        342 non-null    float64\ndtypes: float64(2), str(1)\nmemory usage: 10.7 KB"
   },
   {
     "objectID": "posts/penguin-python/index.html#comparing-body-mass-across-species",

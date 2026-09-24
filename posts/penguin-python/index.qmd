@@ -18,6 +18,8 @@ https://allisonhorst.github.io/palmerpenguins/
 I first load the dataset and inspect its structure.
 
 ```{python}
+#| warning: false
+
 import pandas as pd
 import matplotlib.pyplot as plt
 
@@ -34,8 +36,6 @@ The variables used in this analysis are species, flipper length, and body
 mass. I remove observations that are missing values for these variables.
 
 ```{python}
-#| output: false
-
 analysis_data = penguins[
     ["species", "flipper_length_mm", "body_mass_g"]
 ].dropna()
