@@ -2,6 +2,7 @@
   {
     "listing": "/blog.html",
     "items": [
+      "/posts/bonus-r-python/index.html",
       "/posts/penguin-r/index.html",
       "/posts/penguin-python/index.html",
       "/posts/first-weeks/index.html"

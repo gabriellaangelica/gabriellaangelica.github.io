@@ -4,7 +4,7 @@
     "href": "blog.html",
     "title": "Blog",
     "section": "",
-    "text": "Exploring Penguin Body Mass with R\n\n\n\n\n\n\n\n\nSep 24, 2026\n\n\nGabriella Angelica Jemima Hasian\n\n\n\n\n\n\n\n\n\n\n\n\nExploring Penguin Body Mass with Python\n\n\n\n\n\n\n\n\nSep 23, 2026\n\n\nGabriella Angelica Jemima Hasian\n\n\n\n\n\n\n\n\n\n\n\n\nMy first weeks in MDS\n\n\n\n\n\n\n\n\nSep 10, 2026\n\n\nGabriella Angelica Jemima Hasian\n\n\n\n\n\nNo matching items"
+    "text": "Fuel Efficiency Analysis of Cars Using R and Python\n\n\n\n\n\n\n\n\nSep 24, 2026\n\n\nGabriella Angelica Jemima Hasian\n\n\n\n\n\n\n\n\n\n\n\n\nExploring Penguin Body Mass with R\n\n\n\n\n\n\n\n\nSep 24, 2026\n\n\nGabriella Angelica Jemima Hasian\n\n\n\n\n\n\n\n\n\n\n\n\nExploring Penguin Body Mass with Python\n\n\n\n\n\n\n\n\nSep 23, 2026\n\n\nGabriella Angelica Jemima Hasian\n\n\n\n\n\n\n\n\n\n\n\n\nMy first weeks in MDS\n\n\n\n\n\n\n\n\nSep 10, 2026\n\n\nGabriella Angelica Jemima Hasian\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "index.html",
@@ -12,6 +12,83 @@
     "title": "Gabriella Angelica Jemima Hasian",
     "section": "",
     "text": "Hi, I’m Gabriella Hasian, a Master of Data Science student at the University of British Columbia with a background in Actuarial Science and several years of experience in credit decisioning. Before pursuing my MDS, I worked in banking, where I focused on using data and analytics to support credit risk and portfolio management. This experience sparked my interest in applying data science to real-world problems and using data to drive better decisions. I’m now looking to deepen my expertise in data science and explore opportunities at the intersection of data, technology, and finance."
+  },
+  {
+    "objectID": "posts/bonus-r-python/index.html",
+    "href": "posts/bonus-r-python/index.html",
+    "title": "Fuel Efficiency Analysis of Cars Using R and Python",
+    "section": "",
+    "text": "This analysis examines fuel efficiency in the mtcars dataset while demonstrating how R and Python can work together within the same Quarto document. R is used to prepare the data and calculate average fuel efficiency by cylinder group. The resulting R objects are then passed to Python for further analysis and visualization. Finally, a result calculated in Python is passed back to R.\nThe mtcars dataset contains fuel consumption and other characteristics of 32 automobiles. The dataset is included in R’s datasets package and was originally extracted from the 1974 issue of Motor Trend magazine.\nData source: R datasets package — mtcars documentation:\nhttps://stat.ethz.ch/R-manual/R-devel/library/datasets/html/mtcars.html"
+  },
+  {
+    "objectID": "posts/bonus-r-python/index.html#introduction",
+    "href": "posts/bonus-r-python/index.html#introduction",
+    "title": "Fuel Efficiency Analysis of Cars Using R and Python",
+    "section": "",
+    "text": "This analysis examines fuel efficiency in the mtcars dataset while demonstrating how R and Python can work together within the same Quarto document. R is used to prepare the data and calculate average fuel efficiency by cylinder group. The resulting R objects are then passed to Python for further analysis and visualization. Finally, a result calculated in Python is passed back to R.\nThe mtcars dataset contains fuel consumption and other characteristics of 32 automobiles. The dataset is included in R’s datasets package and was originally extracted from the 1974 issue of Motor Trend magazine.\nData source: R datasets package — mtcars documentation:\nhttps://stat.ethz.ch/R-manual/R-devel/library/datasets/html/mtcars.html"
+  },
+  {
+    "objectID": "posts/bonus-r-python/index.html#setting-up-r-and-python",
+    "href": "posts/bonus-r-python/index.html#setting-up-r-and-python",
+    "title": "Fuel Efficiency Analysis of Cars Using R and Python",
+    "section": "Setting Up R and Python",
+    "text": "Setting Up R and Python\nI use reticulate to connect R and Python within the same Quarto document. Python is configured to use the project’s .venv environment so that the same environment used by the rest of the project is used during rendering.\n\nlibrary(tidyverse)\nlibrary(reticulate)\n\nuse_virtualenv(\"../../.venv\", required = TRUE)\n\npy_config()\n\npython:         /Users/gabriellaangelica/Documents/MDS_Block_1/Lab_Assignment/DSCI_521/gabriellaangelica.github.io/.venv/bin/python\nlibpython:      /Users/gabriellaangelica/.local/share/uv/python/cpython-3.14.7-macos-aarch64-none/lib/libpython3.14.dylib\npythonhome:     /Users/gabriellaangelica/Documents/MDS_Block_1/Lab_Assignment/DSCI_521/gabriellaangelica.github.io/.venv:/Users/gabriellaangelica/Documents/MDS_Block_1/Lab_Assignment/DSCI_521/gabriellaangelica.github.io/.venv\nvirtualenv:     /Users/gabriellaangelica/Documents/MDS_Block_1/Lab_Assignment/DSCI_521/gabriellaangelica.github.io/.venv/bin/activate_this.py\nversion:        3.14.7 (main, Aug 14 2026, 15:24:10) [Clang 22.1.3 ]\nnumpy:          /Users/gabriellaangelica/Documents/MDS_Block_1/Lab_Assignment/DSCI_521/gabriellaangelica.github.io/.venv/lib/python3.14/site-packages/numpy\nnumpy_version:  2.5.3\n\nNOTE: Python version was forced by use_python() function"
+  },
+  {
+    "objectID": "posts/bonus-r-python/index.html#preparing-the-data-in-r",
+    "href": "posts/bonus-r-python/index.html#preparing-the-data-in-r",
+    "title": "Fuel Efficiency Analysis of Cars Using R and Python",
+    "section": "Preparing the Data in R",
+    "text": "Preparing the Data in R\nI begin with the built-in mtcars dataset in R. I move the car names from the row names into a regular column and convert the number of cylinders into a categorical variable. This makes the cylinder groups easier to compare in the analysis.\n\nmtcars_data &lt;- mtcars |&gt;\n  rownames_to_column(\"model\") |&gt;\n  mutate(cyl = factor(cyl))\n\nhead(mtcars_data)\n\n              model  mpg cyl disp  hp drat    wt  qsec vs am gear carb\n1         Mazda RX4 21.0   6  160 110 3.90 2.620 16.46  0  1    4    4\n2     Mazda RX4 Wag 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4\n3        Datsun 710 22.8   4  108  93 3.85 2.320 18.61  1  1    4    1\n4    Hornet 4 Drive 21.4   6  258 110 3.08 3.215 19.44  1  0    3    1\n5 Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2\n6           Valiant 18.1   6  225 105 2.76 3.460 20.22  1  0    3    1"
+  },
+  {
+    "objectID": "posts/bonus-r-python/index.html#calculating-fuel-efficiency-by-cylinder-group-in-r",
+    "href": "posts/bonus-r-python/index.html#calculating-fuel-efficiency-by-cylinder-group-in-r",
+    "title": "Fuel Efficiency Analysis of Cars Using R and Python",
+    "section": "Calculating Fuel Efficiency by Cylinder Group in R",
+    "text": "Calculating Fuel Efficiency by Cylinder Group in R\nI calculate the average miles per gallon (mpg) and number of cars for each cylinder group.\nThe resulting r_summary object is calculated entirely in R and will be passed to Python in the next section.\n\nr_summary &lt;- mtcars_data |&gt;\n  group_by(cyl) |&gt;\n  summarise(\n    mean_mpg = mean(mpg),\n    n = n(),\n    .groups = \"drop\"\n  ) |&gt;\n  mutate(\n    mean_mpg = round(mean_mpg, 2)\n  )\n\nr_summary\n\n# A tibble: 3 × 3\n  cyl   mean_mpg     n\n  &lt;fct&gt;    &lt;dbl&gt; &lt;int&gt;\n1 4         26.7    11\n2 6         19.7     7\n3 8         15.1    14\n\n\nThe results show how average fuel efficiency differs across the cylinder groups. I now pass this R object to Python for further analysis."
+  },
+  {
+    "objectID": "posts/bonus-r-python/index.html#using-r-objects-in-python",
+    "href": "posts/bonus-r-python/index.html#using-r-objects-in-python",
+    "title": "Fuel Efficiency Analysis of Cars Using R and Python",
+    "section": "Using R Objects in Python",
+    "text": "Using R Objects in Python\nThe r object provided by reticulate allows Python to access objects created in R. Here, Python receives both the car-level dataset and the summary calculated in R.\n\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\npython_data = r.mtcars_data\npython_summary = r.r_summary\n\npython_summary\n\n  cyl  mean_mpg   n\n0   4     26.66  11\n1   6     19.74   7\n2   8     15.10  14\n\n\nThe python_summary object is therefore not independently created in Python. It is the r_summary object that was calculated in R and passed into the Python session."
+  },
+  {
+    "objectID": "posts/bonus-r-python/index.html#identifying-the-highest-fuel-efficiency-group-in-python",
+    "href": "posts/bonus-r-python/index.html#identifying-the-highest-fuel-efficiency-group-in-python",
+    "title": "Fuel Efficiency Analysis of Cars Using R and Python",
+    "section": "Identifying the Highest-Fuel-Efficiency Group in Python",
+    "text": "Identifying the Highest-Fuel-Efficiency Group in Python\nI use Python to identify the cylinder group with the highest average fuel efficiency.\n\ntop_cyl = python_summary.loc[\n    python_summary[\"mean_mpg\"].idxmax(),\n    \"cyl\"\n]\n\ntop_mpg = python_summary[\"mean_mpg\"].max()\n\nprint(\"Cylinder group with the highest mean MPG:\", top_cyl)\n\nCylinder group with the highest mean MPG: 4\n\nprint(\"Highest mean MPG:\", top_mpg)\n\nHighest mean MPG: 26.66\n\n\nThe Python calculation identifies the cylinder group with the highest average MPG. The resulting top_cyl object will now be passed back to R."
+  },
+  {
+    "objectID": "posts/bonus-r-python/index.html#passing-the-python-result-back-to-r",
+    "href": "posts/bonus-r-python/index.html#passing-the-python-result-back-to-r",
+    "title": "Fuel Efficiency Analysis of Cars Using R and Python",
+    "section": "Passing the Python Result Back to R",
+    "text": "Passing the Python Result Back to R\nThe py object provided by reticulate allows R to access objects created in Python. I use py$top_cyl to retrieve the result calculated by Python.\n\ntop_cyl_from_python &lt;- py$top_cyl\n\ntop_cyl_from_python\n\n[1] \"4\"\n\n\nThis demonstrates the two-way exchange of objects between the two languages:\nR object → Python → Python result → R"
+  },
+  {
+    "objectID": "posts/bonus-r-python/index.html#visualizing-fuel-efficiency-in-python",
+    "href": "posts/bonus-r-python/index.html#visualizing-fuel-efficiency-in-python",
+    "title": "Fuel Efficiency Analysis of Cars Using R and Python",
+    "section": "Visualizing Fuel Efficiency in Python",
+    "text": "Visualizing Fuel Efficiency in Python\nThe following visualization uses the car-level data originally prepared in R and passed to Python as python_data.\nThe x-axis represents vehicle weight, while the y-axis represents fuel efficiency. Point size represents horsepower, and the legend distinguishes cars by cylinder group. Individual car names are also labelled to make the observations identifiable.\n\nfig, ax = plt.subplots(figsize=(10, 6))\n\nfor cyl in sorted(python_data[\"cyl\"].unique()):\n    subset = python_data[python_data[\"cyl\"] == cyl]\n\n    _ = ax.scatter(\n        subset[\"wt\"],\n        subset[\"mpg\"],\n        s=subset[\"hp\"] * 1.8,\n        alpha=0.75,\n        label=f\"{int(cyl)} cylinders\",\n    )\n\n    for _, row in subset.iterrows():\n        _ = ax.annotate(\n            row[\"model\"],\n            (row[\"wt\"], row[\"mpg\"]),\n            xytext=(5, 5),\n            textcoords=\"offset points\",\n            fontsize=7,\n            alpha=0.8,\n        )\n\n_ = ax.set_xlabel(\"Vehicle weight (1000 lbs)\")\n_ = ax.set_ylabel(\"Fuel efficiency (MPG)\")\n_ = ax.set_title(\"Vehicle Weight vs. Fuel Efficiency\")\n_ = ax.legend(title=\"Cylinder group\")\n_ = ax.grid(alpha=0.2)\n\n_ = plt.tight_layout()\nplt.show()\n\n\n\n\n\n\n\nFigure 1: Vehicle weight and fuel efficiency across cars, with point size representing horsepower and cylinder group represented by the legend\n\n\n\n\n\nThe visualization shows the relationship between vehicle weight and fuel efficiency while providing additional information about horsepower and cylinder group. The data used for the plot originated in R and was passed to Python through reticulate."
+  },
+  {
+    "objectID": "posts/bonus-r-python/index.html#conclusion",
+    "href": "posts/bonus-r-python/index.html#conclusion",
+    "title": "Fuel Efficiency Analysis of Cars Using R and Python",
+    "section": "Conclusion",
+    "text": "Conclusion\nThis analysis demonstrates how R and Python can be combined within a single Quarto document using reticulate.\nR was used to prepare the mtcars dataset and calculate average MPG by cylinder group. The resulting r_summary object was passed from R to Python using r.r_summary. Python then used this object to identify the cylinder group with the highest average MPG.\nThe Python result was subsequently passed back to R using py$top_cyl. Python was also used to visualize the car-level data that had originally been prepared in R."
+  },
+  {
+    "objectID": "posts/first-weeks/index.html",
+    "href": "posts/first-weeks/index.html",
+    "title": "My first weeks in MDS",
+    "section": "",
+    "text": "Catching sunsets between assignments\n\n\nStarting the Master of Data Science at UBC has been an exciting experience so far. Orientation was a great opportunity to meet my classmates and get a sense of what the next few months would look like. Coming from Indonesia and starting this new chapter in Vancouver, it was exciting—and a little overwhelming—to suddenly be surrounded by people from different backgrounds and experiences.\nThe first weeks of classes have been fast-paced, with a lot to learn and even more to keep up with. What surprised me most was how quickly we moved from introductions to actually working with data, programming, and new concepts. I’m enjoying the challenge, especially seeing how different everyone’s approaches can be when solving the same problem.\nI’m still getting used to the pace and finding my routine, but I’m feeling excited about what’s ahead. There is definitely a lot to learn, but I’m looking forward to making the most of the MDS experience, both inside and outside the classroom."
   },
   {
     "objectID": "posts/penguin-python/index.html",
@@ -54,13 +131,6 @@
     "title": "Exploring Penguin Body Mass with Python",
     "section": "Relationship between flipper length and body mass",
     "text": "Relationship between flipper length and body mass\nFinally, I visualize the relationship between flipper length and body mass.\n\nplt.figure(figsize=(8, 5))\n\nfor species, group in analysis_data.groupby(\"species\"):\n    plt.scatter(\n        group[\"flipper_length_mm\"],\n        group[\"body_mass_g\"],\n        label=species,\n        alpha=0.7\n    )\n\nplt.xlabel(\"Flipper length (mm)\")\nplt.ylabel(\"Body mass (g)\")\nplt.title(\"Flipper Length and Body Mass by Penguin Species\")\nplt.legend()\nplt.tight_layout()\nplt.show()\n\n\n\n\n\n\n\nFigure 1: Relationship between flipper length and body mass across penguin species\n\n\n\n\n\nThe plot shows a positive relationship between flipper length and body mass: penguins with longer flippers generally tend to have greater body mass. The species also occupy somewhat different regions of the plot, suggesting that species is associated with differences in these physical measurements."
-  },
-  {
-    "objectID": "posts/first-weeks/index.html",
-    "href": "posts/first-weeks/index.html",
-    "title": "My first weeks in MDS",
-    "section": "",
-    "text": "Catching sunsets between assignments\n\n\nStarting the Master of Data Science at UBC has been an exciting experience so far. Orientation was a great opportunity to meet my classmates and get a sense of what the next few months would look like. Coming from Indonesia and starting this new chapter in Vancouver, it was exciting—and a little overwhelming—to suddenly be surrounded by people from different backgrounds and experiences.\nThe first weeks of classes have been fast-paced, with a lot to learn and even more to keep up with. What surprised me most was how quickly we moved from introductions to actually working with data, programming, and new concepts. I’m enjoying the challenge, especially seeing how different everyone’s approaches can be when solving the same problem.\nI’m still getting used to the pace and finding my routine, but I’m feeling excited about what’s ahead. There is definitely a lot to learn, but I’m looking forward to making the most of the MDS experience, both inside and outside the classroom."
   },
   {
     "objectID": "posts/penguin-r/index.html",

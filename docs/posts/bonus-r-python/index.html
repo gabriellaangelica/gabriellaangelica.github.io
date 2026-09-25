@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Gabriella Angelica Jemima Hasian">
-<meta name="dcterms.date" content="2026-09-23">
+<meta name="dcterms.date" content="2026-09-24">
 
-<title>Exploring Penguin Body Mass with Python – Gabriella Angelica Jemima Hasian</title>
+<title>Fuel Efficiency Analysis of Cars Using R and Python – Gabriella Angelica Jemima Hasian</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -66,7 +66,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -110,9 +110,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
-
-<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 <link rel="stylesheet" href="../../styles.css">
@@ -164,10 +161,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#loading-the-data" id="toc-loading-the-data" class="nav-link" data-scroll-target="#loading-the-data">Loading the data</a></li>
-  <li><a href="#cleaning-the-data" id="toc-cleaning-the-data" class="nav-link" data-scroll-target="#cleaning-the-data">Cleaning the data</a></li>
-  <li><a href="#comparing-body-mass-across-species" id="toc-comparing-body-mass-across-species" class="nav-link" data-scroll-target="#comparing-body-mass-across-species">Comparing body mass across species</a></li>
-  <li><a href="#relationship-between-flipper-length-and-body-mass" id="toc-relationship-between-flipper-length-and-body-mass" class="nav-link" data-scroll-target="#relationship-between-flipper-length-and-body-mass">Relationship between flipper length and body mass</a></li>
+  <li><a href="#setting-up-r-and-python" id="toc-setting-up-r-and-python" class="nav-link" data-scroll-target="#setting-up-r-and-python">Setting Up R and Python</a></li>
+  <li><a href="#preparing-the-data-in-r" id="toc-preparing-the-data-in-r" class="nav-link" data-scroll-target="#preparing-the-data-in-r">Preparing the Data in R</a></li>
+  <li><a href="#calculating-fuel-efficiency-by-cylinder-group-in-r" id="toc-calculating-fuel-efficiency-by-cylinder-group-in-r" class="nav-link" data-scroll-target="#calculating-fuel-efficiency-by-cylinder-group-in-r">Calculating Fuel Efficiency by Cylinder Group in R</a></li>
+  <li><a href="#using-r-objects-in-python" id="toc-using-r-objects-in-python" class="nav-link" data-scroll-target="#using-r-objects-in-python">Using R Objects in Python</a></li>
+  <li><a href="#identifying-the-highest-fuel-efficiency-group-in-python" id="toc-identifying-the-highest-fuel-efficiency-group-in-python" class="nav-link" data-scroll-target="#identifying-the-highest-fuel-efficiency-group-in-python">Identifying the Highest-Fuel-Efficiency Group in Python</a></li>
+  <li><a href="#passing-the-python-result-back-to-r" id="toc-passing-the-python-result-back-to-r" class="nav-link" data-scroll-target="#passing-the-python-result-back-to-r">Passing the Python Result Back to R</a></li>
+  <li><a href="#visualizing-fuel-efficiency-in-python" id="toc-visualizing-fuel-efficiency-in-python" class="nav-link" data-scroll-target="#visualizing-fuel-efficiency-in-python">Visualizing Fuel Efficiency in Python</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   </ul>
 </nav>
     </div>
@@ -176,7 +177,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Exploring Penguin Body Mass with Python</h1>
+<h1 class="title">Fuel Efficiency Analysis of Cars Using R and Python</h1>
 </div>
 
 
@@ -193,7 +194,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 23, 2026</p>
+      <p class="date">September 24, 2026</p>
     </div>
   </div>
   
@@ -207,217 +208,194 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>The Palmer Penguins dataset contains measurements for penguins observed in the Palmer Archipelago of Antarctica. In this analysis, I use Python to explore how body mass and flipper length vary across penguin species.</p>
-<p>The data come from the Palmer Penguins project: https://allisonhorst.github.io/palmerpenguins/</p>
+<p>This analysis examines fuel efficiency in the <code>mtcars</code> dataset while demonstrating how R and Python can work together within the same Quarto document. R is used to prepare the data and calculate average fuel efficiency by cylinder group. The resulting R objects are then passed to Python for further analysis and visualization. Finally, a result calculated in Python is passed back to R.</p>
+<p>The <code>mtcars</code> dataset contains fuel consumption and other characteristics of 32 automobiles. The dataset is included in R’s <code>datasets</code> package and was originally extracted from the 1974 issue of <em>Motor Trend</em> magazine.</p>
+<p><strong>Data source:</strong> R <code>datasets</code> package — <code>mtcars</code> documentation:<br>
+<a href="https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/mtcars.html" class="uri">https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/mtcars.html</a></p>
 </section>
-<section id="loading-the-data" class="level2">
-<h2 class="anchored" data-anchor-id="loading-the-data">Loading the data</h2>
-<p>I first load the dataset and inspect its structure.</p>
-<div id="d6f478f4" class="cell" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<section id="setting-up-r-and-python" class="level2">
+<h2 class="anchored" data-anchor-id="setting-up-r-and-python">Setting Up R and Python</h2>
+<p>I use <code>reticulate</code> to connect R and Python within the same Quarto document. Python is configured to use the project’s <code>.venv</code> environment so that the same environment used by the rest of the project is used during rendering.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reticulate)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://raw.githubusercontent.com/allisonhorst/palmerpenguins/main/inst/extdata/penguins.csv"</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">use_virtualenv</span>(<span class="st">"../../.venv"</span>, <span class="at">required =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> pd.read_csv(url)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>penguins.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="1">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">species</th>
-<th data-quarto-table-cell-role="th">island</th>
-<th data-quarto-table-cell-role="th">bill_length_mm</th>
-<th data-quarto-table-cell-role="th">bill_depth_mm</th>
-<th data-quarto-table-cell-role="th">flipper_length_mm</th>
-<th data-quarto-table-cell-role="th">body_mass_g</th>
-<th data-quarto-table-cell-role="th">sex</th>
-<th data-quarto-table-cell-role="th">year</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">0</th>
-<td>Adelie</td>
-<td>Torgersen</td>
-<td>39.1</td>
-<td>18.7</td>
-<td>181.0</td>
-<td>3750.0</td>
-<td>male</td>
-<td>2007</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">1</th>
-<td>Adelie</td>
-<td>Torgersen</td>
-<td>39.5</td>
-<td>17.4</td>
-<td>186.0</td>
-<td>3800.0</td>
-<td>female</td>
-<td>2007</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">2</th>
-<td>Adelie</td>
-<td>Torgersen</td>
-<td>40.3</td>
-<td>18.0</td>
-<td>195.0</td>
-<td>3250.0</td>
-<td>female</td>
-<td>2007</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">3</th>
-<td>Adelie</td>
-<td>Torgersen</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>2007</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">4</th>
-<td>Adelie</td>
-<td>Torgersen</td>
-<td>36.7</td>
-<td>19.3</td>
-<td>193.0</td>
-<td>3450.0</td>
-<td>female</td>
-<td>2007</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-</section>
-<section id="cleaning-the-data" class="level2">
-<h2 class="anchored" data-anchor-id="cleaning-the-data">Cleaning the data</h2>
-<p>The variables used in this analysis are species, flipper length, and body mass. I remove observations that are missing values for these variables.</p>
-<div id="c33b4140" class="cell" data-execution_count="2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>analysis_data <span class="op">=</span> penguins[</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    [<span class="st">"species"</span>, <span class="st">"flipper_length_mm"</span>, <span class="st">"body_mass_g"</span>]</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>].dropna()</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>analysis_data.info()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">py_config</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&lt;class 'pandas.DataFrame'&gt;
-Index: 342 entries, 0 to 343
-Data columns (total 3 columns):
- #   Column             Non-Null Count  Dtype  
----  ------             --------------  -----  
- 0   species            342 non-null    str    
- 1   flipper_length_mm  342 non-null    float64
- 2   body_mass_g        342 non-null    float64
-dtypes: float64(2), str(1)
-memory usage: 10.7 KB</code></pre>
+<pre><code>python:         /Users/gabriellaangelica/Documents/MDS_Block_1/Lab_Assignment/DSCI_521/gabriellaangelica.github.io/.venv/bin/python
+libpython:      /Users/gabriellaangelica/.local/share/uv/python/cpython-3.14.7-macos-aarch64-none/lib/libpython3.14.dylib
+pythonhome:     /Users/gabriellaangelica/Documents/MDS_Block_1/Lab_Assignment/DSCI_521/gabriellaangelica.github.io/.venv:/Users/gabriellaangelica/Documents/MDS_Block_1/Lab_Assignment/DSCI_521/gabriellaangelica.github.io/.venv
+virtualenv:     /Users/gabriellaangelica/Documents/MDS_Block_1/Lab_Assignment/DSCI_521/gabriellaangelica.github.io/.venv/bin/activate_this.py
+version:        3.14.7 (main, Aug 14 2026, 15:24:10) [Clang 22.1.3 ]
+numpy:          /Users/gabriellaangelica/Documents/MDS_Block_1/Lab_Assignment/DSCI_521/gabriellaangelica.github.io/.venv/lib/python3.14/site-packages/numpy
+numpy_version:  2.5.3
+
+NOTE: Python version was forced by use_python() function</code></pre>
 </div>
 </div>
 </section>
-<section id="comparing-body-mass-across-species" class="level2">
-<h2 class="anchored" data-anchor-id="comparing-body-mass-across-species">Comparing body mass across species</h2>
-<p>Next, I calculate the average and median body mass for each penguin species.</p>
-<div id="709b0bfd" class="cell" data-execution_count="3">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>summary <span class="op">=</span> (</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    analysis_data</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    .groupby(<span class="st">"species"</span>)[<span class="st">"body_mass_g"</span>]</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    .agg([<span class="st">"count"</span>, <span class="st">"mean"</span>, <span class="st">"median"</span>])</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">round</span>(<span class="dv">1</span>)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">count</th>
-<th data-quarto-table-cell-role="th">mean</th>
-<th data-quarto-table-cell-role="th">median</th>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">species</th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">Adelie</th>
-<td>151</td>
-<td>3700.7</td>
-<td>3700.0</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">Chinstrap</th>
-<td>68</td>
-<td>3733.1</td>
-<td>3700.0</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">Gentoo</th>
-<td>123</td>
-<td>5076.0</td>
-<td>5000.0</td>
-</tr>
-</tbody>
-</table>
-
+<section id="preparing-the-data-in-r" class="level2">
+<h2 class="anchored" data-anchor-id="preparing-the-data-in-r">Preparing the Data in R</h2>
+<p>I begin with the built-in <code>mtcars</code> dataset in R. I move the car names from the row names into a regular column and convert the number of cylinders into a categorical variable. This makes the cylinder groups easier to compare in the analysis.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>mtcars_data <span class="ot">&lt;-</span> mtcars <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="st">"model"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cyl =</span> <span class="fu">factor</span>(cyl))</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(mtcars_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              model  mpg cyl disp  hp drat    wt  qsec vs am gear carb
+1         Mazda RX4 21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+2     Mazda RX4 Wag 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+3        Datsun 710 22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+4    Hornet 4 Drive 21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+5 Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+6           Valiant 18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre>
 </div>
 </div>
-</div>
-<p>The summary shows how typical body mass differs among the three species.</p>
 </section>
-<section id="relationship-between-flipper-length-and-body-mass" class="level2">
-<h2 class="anchored" data-anchor-id="relationship-between-flipper-length-and-body-mass">Relationship between flipper length and body mass</h2>
-<p>Finally, I visualize the relationship between flipper length and body mass.</p>
-<div id="cell-fig-penguin-body-mass" class="cell" data-execution_count="4">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> species, group <span class="kw">in</span> analysis_data.groupby(<span class="st">"species"</span>):</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    plt.scatter(</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        group[<span class="st">"flipper_length_mm"</span>],</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        group[<span class="st">"body_mass_g"</span>],</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        label<span class="op">=</span>species,</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        alpha<span class="op">=</span><span class="fl">0.7</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Flipper length (mm)"</span>)</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Body mass (g)"</span>)</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Flipper Length and Body Mass by Penguin Species"</span>)</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div id="fig-penguin-body-mass" class="quarto-float quarto-figure quarto-figure-center anchored">
+<section id="calculating-fuel-efficiency-by-cylinder-group-in-r" class="level2">
+<h2 class="anchored" data-anchor-id="calculating-fuel-efficiency-by-cylinder-group-in-r">Calculating Fuel Efficiency by Cylinder Group in R</h2>
+<p>I calculate the average miles per gallon (<code>mpg</code>) and number of cars for each cylinder group.</p>
+<p>The resulting <code>r_summary</code> object is calculated entirely in R and will be passed to Python in the next section.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>r_summary <span class="ot">&lt;-</span> mtcars_data <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(cyl) <span class="sc">|&gt;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_mpg =</span> <span class="fu">mean</span>(mpg),</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_mpg =</span> <span class="fu">round</span>(mean_mpg, <span class="dv">2</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>r_summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+  cyl   mean_mpg     n
+  &lt;fct&gt;    &lt;dbl&gt; &lt;int&gt;
+1 4         26.7    11
+2 6         19.7     7
+3 8         15.1    14</code></pre>
+</div>
+</div>
+<p>The results show how average fuel efficiency differs across the cylinder groups. I now pass this R object to Python for further analysis.</p>
+</section>
+<section id="using-r-objects-in-python" class="level2">
+<h2 class="anchored" data-anchor-id="using-r-objects-in-python">Using R Objects in Python</h2>
+<p>The <code>r</code> object provided by <code>reticulate</code> allows Python to access objects created in R. Here, Python receives both the car-level dataset and the summary calculated in R.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>python_data <span class="op">=</span> r.mtcars_data</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>python_summary <span class="op">=</span> r.r_summary</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>python_summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  cyl  mean_mpg   n
+0   4     26.66  11
+1   6     19.74   7
+2   8     15.10  14</code></pre>
+</div>
+</div>
+<p>The <code>python_summary</code> object is therefore not independently created in Python. It is the <code>r_summary</code> object that was calculated in R and passed into the Python session.</p>
+</section>
+<section id="identifying-the-highest-fuel-efficiency-group-in-python" class="level2">
+<h2 class="anchored" data-anchor-id="identifying-the-highest-fuel-efficiency-group-in-python">Identifying the Highest-Fuel-Efficiency Group in Python</h2>
+<p>I use Python to identify the cylinder group with the highest average fuel efficiency.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>top_cyl <span class="op">=</span> python_summary.loc[</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    python_summary[<span class="st">"mean_mpg"</span>].idxmax(),</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"cyl"</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>top_mpg <span class="op">=</span> python_summary[<span class="st">"mean_mpg"</span>].<span class="bu">max</span>()</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Cylinder group with the highest mean MPG:"</span>, top_cyl)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Cylinder group with the highest mean MPG: 4</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Highest mean MPG:"</span>, top_mpg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Highest mean MPG: 26.66</code></pre>
+</div>
+</div>
+<p>The Python calculation identifies the cylinder group with the highest average MPG. The resulting <code>top_cyl</code> object will now be passed back to R.</p>
+</section>
+<section id="passing-the-python-result-back-to-r" class="level2">
+<h2 class="anchored" data-anchor-id="passing-the-python-result-back-to-r">Passing the Python Result Back to R</h2>
+<p>The <code>py</code> object provided by <code>reticulate</code> allows R to access objects created in Python. I use <code>py$top_cyl</code> to retrieve the result calculated by Python.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>top_cyl_from_python <span class="ot">&lt;-</span> py<span class="sc">$</span>top_cyl</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>top_cyl_from_python</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "4"</code></pre>
+</div>
+</div>
+<p>This demonstrates the two-way exchange of objects between the two languages:</p>
+<pre class="text"><code>R object → Python → Python result → R</code></pre>
+</section>
+<section id="visualizing-fuel-efficiency-in-python" class="level2">
+<h2 class="anchored" data-anchor-id="visualizing-fuel-efficiency-in-python">Visualizing Fuel Efficiency in Python</h2>
+<p>The following visualization uses the car-level data originally prepared in R and passed to Python as <code>python_data</code>.</p>
+<p>The x-axis represents vehicle weight, while the y-axis represents fuel efficiency. Point size represents horsepower, and the legend distinguishes cars by cylinder group. Individual car names are also labelled to make the observations identifiable.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> cyl <span class="kw">in</span> <span class="bu">sorted</span>(python_data[<span class="st">"cyl"</span>].unique()):</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    subset <span class="op">=</span> python_data[python_data[<span class="st">"cyl"</span>] <span class="op">==</span> cyl]</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    _ <span class="op">=</span> ax.scatter(</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>        subset[<span class="st">"wt"</span>],</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>        subset[<span class="st">"mpg"</span>],</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>        s<span class="op">=</span>subset[<span class="st">"hp"</span>] <span class="op">*</span> <span class="fl">1.8</span>,</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>        alpha<span class="op">=</span><span class="fl">0.75</span>,</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>        label<span class="op">=</span><span class="ss">f"</span><span class="sc">{</span><span class="bu">int</span>(cyl)<span class="sc">}</span><span class="ss"> cylinders"</span>,</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _, row <span class="kw">in</span> subset.iterrows():</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>        _ <span class="op">=</span> ax.annotate(</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>            row[<span class="st">"model"</span>],</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>            (row[<span class="st">"wt"</span>], row[<span class="st">"mpg"</span>]),</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>            xytext<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>),</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>            textcoords<span class="op">=</span><span class="st">"offset points"</span>,</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>            fontsize<span class="op">=</span><span class="dv">7</span>,</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>            alpha<span class="op">=</span><span class="fl">0.8</span>,</span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> ax.set_xlabel(<span class="st">"Vehicle weight (1000 lbs)"</span>)</span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> ax.set_ylabel(<span class="st">"Fuel efficiency (MPG)"</span>)</span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> ax.set_title(<span class="st">"Vehicle Weight vs. Fuel Efficiency"</span>)</span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> ax.legend(title<span class="op">=</span><span class="st">"Cylinder group"</span>)</span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> ax.grid(alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> plt.tight_layout()</span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-mtcars-analysis" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-penguin-body-mass-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-penguin-body-mass-output-1.png" width="760" height="470" class="figure-img">
+<div aria-describedby="fig-mtcars-analysis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-mtcars-analysis-1.png" class="img-fluid figure-img" width="960">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-penguin-body-mass-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Relationship between flipper length and body mass across penguin species
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mtcars-analysis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Vehicle weight and fuel efficiency across cars, with point size representing horsepower and cylinder group represented by the legend
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>The plot shows a positive relationship between flipper length and body mass: penguins with longer flippers generally tend to have greater body mass. The species also occupy somewhat different regions of the plot, suggesting that species is associated with differences in these physical measurements.</p>
+<p>The visualization shows the relationship between vehicle weight and fuel efficiency while providing additional information about horsepower and cylinder group. The data used for the plot originated in R and was passed to Python through <code>reticulate</code>.</p>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>This analysis demonstrates how R and Python can be combined within a single Quarto document using <code>reticulate</code>.</p>
+<p>R was used to prepare the <code>mtcars</code> dataset and calculate average MPG by cylinder group. The resulting <code>r_summary</code> object was passed from R to Python using <code>r.r_summary</code>. Python then used this object to identify the cylinder group with the highest average MPG.</p>
+<p>The Python result was subsequently passed back to R using <code>py$top_cyl</code>. Python was also used to visualize the car-level data that had originally been prepared in R.</p>
 
 
 </section>

@@ -1,0 +1,171 @@
+---
+title: "Fuel Efficiency Analysis of Cars Using R and Python"
+author: "Gabriella Angelica Jemima Hasian"
+date: "2026-09-24"
+---
+
+## Introduction
+
+This analysis examines fuel efficiency in the `mtcars` dataset while demonstrating how R and Python can work together within the same Quarto document. R is used to prepare the data and calculate average fuel efficiency by cylinder group. The resulting R objects are then passed to Python for further analysis and visualization. Finally, a result calculated in Python is passed back to R.
+
+The `mtcars` dataset contains fuel consumption and other characteristics of 32 automobiles. The dataset is included in R's `datasets` package and was originally extracted from the 1974 issue of *Motor Trend* magazine.
+
+**Data source:** R `datasets` package — `mtcars` documentation:  
+<https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/mtcars.html>
+
+## Setting Up R and Python
+
+I use `reticulate` to connect R and Python within the same Quarto document. Python is configured to use the project's `.venv` environment so that the same environment used by the rest of the project is used during rendering.
+
+```{r}
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(reticulate)
+
+use_virtualenv("../../.venv", required = TRUE)
+
+py_config()
+```
+
+## Preparing the Data in R
+
+I begin with the built-in `mtcars` dataset in R. I move the car names from the row names into a regular column and convert the number of cylinders into a categorical variable. This makes the cylinder groups easier to compare in the analysis.
+
+```{r}
+mtcars_data <- mtcars |>
+  rownames_to_column("model") |>
+  mutate(cyl = factor(cyl))
+
+head(mtcars_data)
+```
+
+## Calculating Fuel Efficiency by Cylinder Group in R
+
+I calculate the average miles per gallon (`mpg`) and number of cars for each cylinder group.
+
+The resulting `r_summary` object is calculated entirely in R and will be passed to Python in the next section.
+
+```{r}
+r_summary <- mtcars_data |>
+  group_by(cyl) |>
+  summarise(
+    mean_mpg = mean(mpg),
+    n = n(),
+    .groups = "drop"
+  ) |>
+  mutate(
+    mean_mpg = round(mean_mpg, 2)
+  )
+
+r_summary
+```
+
+The results show how average fuel efficiency differs across the cylinder groups. I now pass this R object to Python for further analysis.
+
+## Using R Objects in Python
+
+The `r` object provided by `reticulate` allows Python to access objects created in R. Here, Python receives both the car-level dataset and the summary calculated in R.
+
+```{python}
+#| warning: false
+#| message: false
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+python_data = r.mtcars_data
+python_summary = r.r_summary
+
+python_summary
+```
+
+The `python_summary` object is therefore not independently created in Python. It is the `r_summary` object that was calculated in R and passed into the Python session.
+
+## Identifying the Highest-Fuel-Efficiency Group in Python
+
+I use Python to identify the cylinder group with the highest average fuel efficiency.
+
+```{python}
+top_cyl = python_summary.loc[
+    python_summary["mean_mpg"].idxmax(),
+    "cyl"
+]
+
+top_mpg = python_summary["mean_mpg"].max()
+
+print("Cylinder group with the highest mean MPG:", top_cyl)
+print("Highest mean MPG:", top_mpg)
+```
+
+The Python calculation identifies the cylinder group with the highest average MPG. The resulting `top_cyl` object will now be passed back to R.
+
+## Passing the Python Result Back to R
+
+The `py` object provided by `reticulate` allows R to access objects created in Python. I use `py$top_cyl` to retrieve the result calculated by Python.
+
+```{r}
+top_cyl_from_python <- py$top_cyl
+
+top_cyl_from_python
+```
+
+This demonstrates the two-way exchange of objects between the two languages:
+
+```text
+R object → Python → Python result → R
+```
+
+## Visualizing Fuel Efficiency in Python
+
+The following visualization uses the car-level data originally prepared in R and passed to Python as `python_data`.
+
+The x-axis represents vehicle weight, while the y-axis represents fuel efficiency. Point size represents horsepower, and the legend distinguishes cars by cylinder group. Individual car names are also labelled to make the observations identifiable.
+
+```{python}
+#| label: fig-mtcars-analysis
+#| fig-cap: "Vehicle weight and fuel efficiency across cars, with point size representing horsepower and cylinder group represented by the legend"
+
+fig, ax = plt.subplots(figsize=(10, 6))
+
+for cyl in sorted(python_data["cyl"].unique()):
+    subset = python_data[python_data["cyl"] == cyl]
+
+    _ = ax.scatter(
+        subset["wt"],
+        subset["mpg"],
+        s=subset["hp"] * 1.8,
+        alpha=0.75,
+        label=f"{int(cyl)} cylinders",
+    )
+
+    for _, row in subset.iterrows():
+        _ = ax.annotate(
+            row["model"],
+            (row["wt"], row["mpg"]),
+            xytext=(5, 5),
+            textcoords="offset points",
+            fontsize=7,
+            alpha=0.8,
+        )
+
+_ = ax.set_xlabel("Vehicle weight (1000 lbs)")
+_ = ax.set_ylabel("Fuel efficiency (MPG)")
+_ = ax.set_title("Vehicle Weight vs. Fuel Efficiency")
+_ = ax.legend(title="Cylinder group")
+_ = ax.grid(alpha=0.2)
+
+_ = plt.tight_layout()
+plt.show()
+```
+
+The visualization shows the relationship between vehicle weight and fuel efficiency while providing additional information about horsepower and cylinder group. The data used for the plot originated in R and was passed to Python through `reticulate`.
+
+## Conclusion
+
+This analysis demonstrates how R and Python can be combined within a single Quarto document using `reticulate`.
+
+R was used to prepare the `mtcars` dataset and calculate average MPG by cylinder group. The resulting `r_summary` object was passed from R to Python using `r.r_summary`. Python then used this object to identify the cylinder group with the highest average MPG.
+
+The Python result was subsequently passed back to R using `py$top_cyl`. Python was also used to visualize the car-level data that had originally been prepared in R.
